@@ -43,7 +43,7 @@ function reducer(state= initialState, action) {  //przypisujemy wartość domyś
 					}
 				})
 			});
-		case THUMB_UP_COMMENT
+		case THUMB_DOWN_COMMENT
 			return Object.assign({}, state, {
 				comments: state.comments.map(comment => {
 					if (comment.id === action.id) {
