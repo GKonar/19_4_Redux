@@ -7,4 +7,11 @@ const app = combineReducers({
     users
 });
 
+/*
+const initialState = { //zmienna definiująca początkowy stan aplikacji
+	commments: [],
+	users: []	
+};
+*/
+
 
