@@ -5,11 +5,12 @@ import {ADD_COMMENT,
 		THUMB_DOWN_COMMENT
 		}  from './actions'
 
-const initialState = {
-	commment: [],
+const initialState = { //zmienna definiująca początkowy stan aplikacji
+	commments: [],
 	users: []	
 };
-
+// Reducer jest czystą funkcją, która na wejściu przyjmuje poprzedni stan aplikacji oraz akcję opisującą zmianę w stanie. 
+// Wynikiem działania reducera jest nowy stan aplikacji.
 function reducer(state= initialState, action) {  //przypisujemy wartość domyślną
 	switch(action.type) {
 		case ADD_COMMENT
@@ -20,25 +21,38 @@ function reducer(state= initialState, action) {  //przypisujemy wartość domyś
 					text: action.text,
 					votes: 0
 				}
-				, ...state]
-			})
+				, ...state] //to state, to jest dalsza część state
+			});
+		case EDIT_COMMENT
+			return Object.assign({}, state, {
+				comments: state.comments.map(comment => {
+					if (comment.id === action.id) {
+						return {...comment, text: action.text}
+					}
+				})
+			});
 		case REMOVE_COMMENT
 			return Object.assign({}, state, {
 				comments: state.comments.filter(comment => comment.id !== action.id) //funkcja odfilture każdy obiekt ,który spełnia podane założenie
 			});
-		case EDIT_COMMENT
-			return 
+		case THUMB_UP_COMMENT
+			return Object.assign({}, state, {
+				comments: state.comments.map(comment => {
+					if (comment.id === action.id) {
+						return {...comment, comment.votes = commment.votes + 1}
+					}
+				})
 			});
-			default:
-				return state;
+		case THUMB_UP_COMMENT
+			return Object.assign({}, state, {
+				comments: state.comments.map(comment => {
+					if (comment.id === action.id) {
+						return {...comment, comment.votes = comment.votes - 1}
+					}
+				})
+			});
+		default:
+			return state;
 	}
 }
 
-/*
-function reducer(state, action) {
-    if(!state) {
-    	return initialState;
-	}
-    return state;
-}
-*/
